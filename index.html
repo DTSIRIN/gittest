@@ -1,63 +1,112 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css" />
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/onsenui/css/onsen-css-components.min.css"
-    />
-    <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
-    <!-- The core Firebase JS SDK is always required and must be listed first -->
-    <script src="https://www.gstatic.com/firebasejs/7.20.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.20.0/firebase-firestore.js"></script>
+<head>
+  <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css" />
+  <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css" />
+  <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
 
-    <!-- TODO: Add SDKs for Firebase products that you want to use
+
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.20.0/firebase-firestore.js"></script>
+<!-- TODO: Add SDKs for Firebase products that you want to use
      https://firebase.google.com/docs/web/setup#available-libraries -->
-    <script src="https://www.gstatic.com/firebasejs/7.20.0/firebase-analytics.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.21.1/firebase-auth.js"></script>
-    <script src="js/firebase.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-analytics.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.21.1/firebase-auth.js"></script> 
+  <script src="js/firebase.js"></script>
+  <script src="js/app.js"></script>
+</head>
 
-    <script src="js/app.js"></script>
-  </head>
+<body>
+  <ons-navigator id="myNavigator" page="tabs.html"></ons-navigator>
 
-  <body>
-    <ons-navigator id="myNavigator" page="tabs.html"></ons-navigator>
-    <template id="tabs.html">
-      <ons-page>
-        <ons-toolbar>
-          <div class="center">Home</div>
-          <div class="right">
-            <ons-toolbar-button id="signout">sign out</ons-toolbar-button>
-          </div>
-        </ons-toolbar>
+  <template id="tabs.html">
+    <ons-page id="home_splitter">
+      <ons-splitter>
+        <ons-splitter-side id="menu" page="menu.html" side="left" width="220px" collapse swipeable></ons-splitter-side>
+        <ons-splitter-content id="content" page="tabhome.html"></ons-splitter-content>
+      </ons-splitter>
+    </ons-page>
+  </template>
 
-        <ons-tabbar position="auto">
-          <ons-tab
-            page="./views/tab1.html"
-            label="Home"
-            icon="md-home"
-            badge="7"
-            active
-          >
-          </ons-tab>
-          <ons-tab page="./views/tab2.html" label="Movie" icon="md-settings">
-          </ons-tab>
-          <ons-tab page="./views/tab2.html" label="favorite" icon="md-settings">
-          </ons-tab>
-          <ons-tab page="./views/tab2.html" label="Setting" icon="md-settings">
-          </ons-tab>
-        </ons-tabbar>
-      </ons-page>
-    </template>
-
-    <script>
-      document.addEventListener("prechange", function (event) {
-        if (event.tabItem) {
-          document.querySelector(
-            "ons-toolbar .center"
-          ).innerHTML = event.tabItem.getAttribute("label");
+  <template id="menu.html">
+    <ons-page id="menu">
+      <ons-list style="background-color: transparent;">
+        <ons-list-header class="menu_header">View by Category</ons-list-header>
+        <ons-list-item tappable>Action</ons-list-item>
+        <ons-list-item tappable>Comedy</ons-list-item>
+        <ons-list-item tappable>Horror</ons-list-item>
+        <ons-list-item tappable>Romance</ons-list-item>
+      </ons-list>
+  
+      <style type="text/css">
+        .menu_header {
+          background-color: black;
+          border-bottom: 1px solid rgba(147, 145, 145, 0.76);
+          color: orange;
+          height: 25px;
+          font-size: 10px;
+          padding: 0 0 0 16px!important;
         }
-      });
-    </script>
-  </body>
+      </style>
+    </ons-page>
+  </template>
+
+  <template id="tabhome.html">
+    
+    <ons-page id="tabhome">
+      <ons-toolbar>
+        <div class="center" style="color: orange">Home</div>
+        <div class="right"><ons-toolbar-button id="signout">sign out</ons-toolbar-button></div>
+        <div class="left">
+          <ons-toolbar-button id ="menu_button"> <ons-icon icon="fa-bars"></ons-icon></ons-toolbar-button>
+      </div>
+      </ons-toolbar>
+
+      <ons-tabbar position="auto" >
+        <ons-tab page="./views/tab1.html" label="Home" icon="md-home" badge="1" active >
+        </ons-tab>
+        <ons-tab page="./views/tab2.html" label="Movie" icon="ion-md-film">
+        </ons-tab>
+        <ons-tab page="./views/tab3.html" label="Search" icon="md-search">
+        </ons-tab>
+        <ons-tab page="./views/tab4.html" label="Play" icon="ion-md-play">
+        </ons-tab>
+      </ons-tabbar>
+
+   </ons-page>
+  </template>
+
+  <style type="text/css">
+    .page {
+      color: black;
+    }
+    .page__background {
+      background-color: whitesmoke;;
+    }
+  
+    .toolbar:not(.toolbar--transparent) {
+      background-color: black;
+    }
+
+    .tabbar:not(.tabbar--transparent) {
+      background-color: black;
+    }
+  
+    .toolbar-button {
+      color: orange;
+    }
+  
+    .list-item {
+      color: orange;
+    }
+    .icon {
+      color: orange;
+    }
+    .tabbar__badge.notification {
+background-color: orange;
+}
+  </style>
+</body>
+
 </html>
